@@ -101,7 +101,7 @@ function showCreditsScreen(): void {
   const creditsAmounts = document.querySelector('.credits-amount')
   creditsAmounts!.textContent = `${savedBalanceAmount}`
 
-  // hideScreen(mainScreen)
+  hideScreen(mainScreen)
   showScreen(finalScreen)
 
   creaditBalance.textContent = `${savedBalanceAmount}.00`
