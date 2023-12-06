@@ -15,6 +15,7 @@ let savedBalanceAmount: number | null = null
 
 const spinTime: number = 4000
 const defaultspinDegrees: number = 360 * 3
+const wheelItemsCount: number = 8
 let rotating: boolean = false
 
 function wheelStopsCalculation(): void {
@@ -43,9 +44,11 @@ function saveBalance(): void {
 }
 
 function startRotation() {
+  wheelStopsCalculation()
+  
   rotating = true
   wheel.style.transition = 'transform 5s ease-in-out'
-  wheel.style.transform = `rotate(-${defaultspinDegrees + selectedIndex! * 45}deg)`
+  wheel.style.transform = `rotate(-${defaultspinDegrees + (selectedIndex! * 45)}deg)`
 }
 
 function stopRotation(): void {
@@ -58,14 +61,12 @@ function stopRotation(): void {
 }
 
 function resetRotation(): void {
+  selectedIndex = null
+  selectedValue = 0
   wheel.style.transform = 'rotate(0deg)'
-
-  wheelStopsCalculation()
 }
 
 function spinWheel(): void {
-  wheelStopsCalculation()
-
   if (!mainScreenContent.classList.contains('main-screen__content_animated')) {
     mainScreenContent.classList.add('main-screen__content_animated')
     startRotation()
@@ -105,6 +106,7 @@ function showCreditsScreen(): void {
   showScreen(finalScreen)
 
   creaditBalance.textContent = `${savedBalanceAmount}.00`
+  finalBtn?.addEventListener('click', () => showStartScreen())
 }
 
 function showScreen(screen: HTMLElement): void {
@@ -119,5 +121,4 @@ function hideScreen(screen: HTMLElement): void {
   hideScreen(finalScreen)
 
   startBtn?.addEventListener('click', () => showWheelScreen())
-  finalBtn?.addEventListener('click', () => showStartScreen())
 })()
